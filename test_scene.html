@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<title>graphics and all</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/5.2.0/math.min.js"></script>
+		<script type="text/javascript" src="math.js"></script>
+		<script src="core.js"></script>
+		<script src="graphics.js"></script>
+		<script src="engine.js"></script>
+		<script>
+			graphics.onReady(function(){
+
+				var scene = {
+					colors : ["red", "green", "blue"],
+					next: 0,
+					angle: 0,
+					v : new vec2(2, 0),
+					init : function(){},
+					update: function(dt){
+						this.angle += 1;
+						this.angle %= 360;
+					},
+					render: function(){
+						var mtx = new mat3();
+						mtx.rotate(this.angle); 
+
+						var p = mtx.mutiply(this.v);
+
+						graphics.drawLines([{x: 0, y: 0}, p]);
+					}
+
+				};
+
+				var engine = new Engine(scene, 0);
+				engine.run();
+
+
+			});
+		</script>
+	</head>
+	<canvas id="canvas"  width="500" height="500"></canvas>
+</html>
